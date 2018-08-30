@@ -12,7 +12,9 @@ let verificaToken = (req, res, next) => {
         if (err) {
             return res.status(401).json({
                 ok: false,
-                err: "Authorization no valido"
+                err: {
+                    message: "Authorization no valido"
+                }
             });
         }
 
@@ -20,11 +22,34 @@ let verificaToken = (req, res, next) => {
         next();
     });
 
-
-
 };
+
+//=======================
+// Verificar Token
+//======================
+let verificaAdmin_Role = (req, res, next) => {
+
+    let usuario = req.usuario;
+
+    if (usuario.role === "ADMIN_ROLE") {
+        next();
+    } else {
+
+        return res.json({
+            ok: false,
+            err: {
+                message: 'El usuario no es administrador'
+            }
+        });
+
+    }
+
+
+
+}
 
 
 module.exports = {
-    verificaToken
+    verificaToken,
+    verificaAdmin_Role
 }
