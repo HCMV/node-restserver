@@ -26,6 +26,10 @@ Método POST:
 * **_Requerido_**
      * **Body**: *nombre*, *password*, retorna datos de usuario y token que se utiliza para los otros métodos.
 
+`{{url}}/google`
+* **_Requerido_**
+     * **Body**: *idtoken*, realiza login con google, si el usuario no se encuentra en la bd, lo crea, en caso de que exista anterior al google sign, solicita que ingrese con `{{url}}/login`.
+
 `{{url}}/usuario`
 * **_Requerido_**
      * **Body**: *nombre*, *email*, *password* como parámetros requeridos, parámetro *role* es opcional.
@@ -43,6 +47,8 @@ Método DELETE:
 * **_Requerido_**
      * **Headers**: debe ser enviado token que retorna login, role debe ser *ADMIN_ROLE* para que permita crear usuario.
 Permite editar , enviados en el body.
+
+lib: https://documenter.getpostman.com/view/5046705/RWaDVWYQ#54e87dcf-e5b0-4d9d-be8b-0d769fa585ec
 
 
 Para iniciar no olvidar ejecutar:
