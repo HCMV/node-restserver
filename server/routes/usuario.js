@@ -60,7 +60,7 @@ app.post('/usuario', verificaToken, function(req, res) {
         }
 
         //usuarioDB.password = null;
-        res.json({
+        res.status(201).json({
             ok: true,
             usuario: usuarioDB
         });

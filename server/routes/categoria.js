@@ -21,9 +21,11 @@ app.get('/categoria', verificaToken, (req, res) => {
     Categoria.find({})
         .skip(desde)
         .limit(limite)
+        .sort('descripcion')
+        .populate('usuario', 'nombre email')
         .exec((err, categoria) => {
             if (err) {
-                return res.status(400).json({
+                return res.status(500).json({
                     ok: false,
                     err
                 });
@@ -48,21 +50,32 @@ app.get('/categoria/:id', verificaToken, (req, res) => {
 
     let id = req.params.id;
 
-    Categoria.findById(id, 'descripcion usuario', { runValidators: true }, (err, categoriaDB) => {
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err
-            });
-        }
+    Categoria.findById(id, 'descripcion', { runValidators: true }, (err, categoriaDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
 
-        res.json({
-            ok: true,
-            categoria: categoriaDB
-        });
-    })
+            if (!categoriaDB) {
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'El ID no es correcto'
+                    }
+                });
+            }
+
+            res.json({
+                ok: true,
+                categoria: categoriaDB
+            });
+        })
+        .populate('usuario', 'nombre email')
 
 });
+
 
 //=============================
 // Crear una categoría 
@@ -93,7 +106,7 @@ app.post('/categoria', verificaToken, (req, res) => {
         }
 
 
-        res.json({
+        res.status(201).json({
             ok: true,
             categoria: categoriaDB
         });
@@ -114,7 +127,7 @@ app.put('/categoria/:id', verificaToken, function(req, res) {
 
 
 
-    Categoria.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, categoriaDB) => {
+    Categoria.findByIdAndUpdate(id, descCategoria, { new: true, runValidators: true }, (err, categoriaDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
