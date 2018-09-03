@@ -7,6 +7,7 @@
 * CRUDS
      * [Usuarios](#usuarios)
      * [Categorías](#categorias)
+     * [Productos](#productos)
   
 
 libs: https://documenter.getpostman.com/view/5046705/RWaDVWYQ
@@ -171,7 +172,7 @@ Método DELETE:
 
 *  **Headers**: debe ser enviado token que retorna login, role debe ser *ADMIN_ROLE* para que permita eliminar categoría.
 
-## Producto
+## Productos
 
 **{{url}}**: dirección donde se aloja la app.
 
