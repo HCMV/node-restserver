@@ -196,6 +196,13 @@ Método GET:
 
 *  **Headers**: debe ser enviado token que retorna login.
 
+`{{url}}/producto/buscar/termino`
+`termino`: nombre de producto a buscar
+
+*  **_Requerido_**
+
+*  **Headers**: debe ser enviado token que retorna login.
+
 Método POST:
 
 `{{url}}/producto`
